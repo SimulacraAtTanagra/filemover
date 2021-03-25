@@ -5,15 +5,10 @@ import shutil
 
 def grab_dates(file):
     fname = pathlib.Path(file)
-    assert fname.exists(), f'No such file: {fname}'  # check that the file exists
-    create = datetime.datetime.fromtimestamp(fname.stat().st_ctime).year
+    #assert fname.exists(), f'No such file: {fname}'  # check that the file exists
+    #create = datetime.datetime.fromtimestamp(fname.stat().st_ctime).year
     modify = datetime.datetime.fromtimestamp(fname.stat().st_mtime).year
-    if create==modify:
-        return(str(create))
-    elif modify<create:
-        return(str(modify))
-    else:
-        return(str(modify))
+    return(str(modify))
         
 def foldercheck(folderstring):
     if os.path.isfile(folderstring):
@@ -48,8 +43,8 @@ def file_mover(folderstring):
         foldercheck(os.path.join(folderstring,date))
     for file in filelist:
         filefolder=os.path.join(folderstring,grab_dates(os.path.join(folderstring,file)))
-        #shutil.move(os.path.join(folderstring,file),filefolder)
         try_move(os.path.join(folderstring,file),filefolder)
+        
 def file_count(folder):
     counter=0
     for dir,subdir, files in os.walk(folder):
@@ -57,7 +52,7 @@ def file_count(folder):
             counter+=1
     return(counter)
     
-def file_dupes(folder):
+def file_dupes(folder): #checks a directory for files with duplicate names
     filelist=[]
     for dir, subdir, files in os.walk(folder):
         for file in files:
