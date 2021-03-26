@@ -2,7 +2,7 @@ import pathlib
 import os
 import datetime
 import shutil
-
+#TODO use https://stackoverflow.com/questions/1072569/see-if-two-files-have-the-same-content-in-python filecmp
 def grab_dates(file):
     fname = pathlib.Path(file)
     #assert fname.exists(), f'No such file: {fname}'  # check that the file exists
